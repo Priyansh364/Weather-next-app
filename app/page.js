@@ -114,8 +114,7 @@ export default function Home() {
                         >
                             {items.map((item, index) => (
 
-                                <table key={index} className="table-auto w-full text- whitespace-no-wrap">
-
+                                <table key={index} onClick={() => {window.location.href = `/Main?city=${item.city}` }} className="table-auto w-full text- whitespace-no-wrap hover:cursor-pointer hover:bg-slate-400/50 active:bg-slate-400/80">
                                     <tbody >
 
                                         <tr onClick={() => handleMain(item.city)}>
@@ -130,21 +129,6 @@ export default function Home() {
 
                             ))}
                         </InfiniteScroll>
-
-                        {/* {city && city.map((item, index) => (
-                                        <tbody key={index}>
-
-                                            <tr >
-                                                <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">{item.ascii_name}</td>
-                                                <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">{item.cou_name_en}</td>
-                                                <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">{item.timezone}</td>
-                                                <td className="border-t-2 border-b-2 border-gray-200 w-10 text-center">
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    ))} */}
-
-
                     </div>
                 </section>
             </div>
