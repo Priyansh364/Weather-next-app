@@ -53,9 +53,8 @@ const Main = () => {
 
     return (
         <div>
-            <div className='fixed h-fit w-full mt-0 '>
-
-                <div className={`z-2 relative mx-auto max-w-screen-md my-5 py-5 sm:px-32 bg-gradient-to-br ${formatbackground()} h-fit shadow-xl shadow-gray-400 container`}>
+            <div className='h-fit w-full mt-0'>
+                <div className={`z-2 relative mx-auto max-w-screen-md my-5 py-5 sm:px-32 bg-gradient-to-br ${formatbackground()} h-fit shadow-xl shadow-gray-400 container rounded-3xl`}>
                     <Link href="/" className=' z-2 absolute  container w-full mx-10 text-white left-0'>&larr; Home</Link>
                     <Topbuttons setQuery={setQuery} />
                     <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
@@ -71,10 +70,7 @@ const Main = () => {
                         </div>
 
                     }
-
-
                 </div>
-
             </div>
         </div>
     )
