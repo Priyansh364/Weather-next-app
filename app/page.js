@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React from 'react'
 // import Topbuttons from './Topbuttons'
 // import Inputs from './Inputs'
@@ -6,26 +7,20 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 // import Citydata from './Citydata'
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-
+import { UilSearch } from '@iconscout/react-unicons'
 
 
 
 export default function Home() {
     const [city, setCity] = useState("")
 
-    const [query, setQuery] = useState({ q: "Berlin" })
-
-
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-            if (city !== '') setQuery({ q: city })
-            handleSearchClick(city);
+            if (city !== '') {
+                window.location.href = `/Main?city=${city}`
+            }
         }
     };
-    const handleSearchClick = () => (
-        {/* <Link to={`/Main/${city}`} /> */ }
-    )
 
 
     const handleMain = (City) => {
@@ -93,10 +88,14 @@ export default function Home() {
                     <div className="flex flex-col text-center w-full mb-10">
                         <h1 className="sm:text-4xl text-3xl font-medium title-font text-gray-50">Get the Weather </h1>
                     </div>
+                    <div className='flex gap-2 items-center mb-4'>
                     <input
                         value={city} onKeyDown={handleKeyPress} onChange={(e) => setCity(e.currentTarget.value)}
-                        className=' font-normal mb-4 p-2 focus:outline-none w-full shadow-xl text-black capitalize' type="text" placeholder='Search for city...' />
-                    <a href={`/Main/${city}`}> dsfds</a>
+                        className=' font-normal p-2 focus:outline-none grow shadow-xl text-black capitalize' type="text" placeholder='Search for city...' />
+                    <Link href={`/Main?city=${city}`}>
+                        <UilSearch />
+                    </Link>
+                    </div>
 
                     <div className=" w-full mx-auto ">
                         <table className="table-auto  w-full text-left whitespace-no-wrap">
