@@ -33,7 +33,8 @@ export default function Home() {
     const pageSize = 10; // Number of items per page
 
     const fetchData = (trigger) => async () => {
-        const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=20&offset=${items.length}` + (city ? `&where=%22${city}%22` : '');
+        const apiOffset = (trigger === 'scroll') ? items.length : 0;
+        const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=20&offset=${apiOffset}` + (city ? `&where=%22${city}%22` : '');
 
         try {
             const response = await fetch(apiUrl);
