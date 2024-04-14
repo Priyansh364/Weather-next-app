@@ -30,11 +30,10 @@ export default function Home() {
 
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
-    const [page, setPage] = useState(1);
     const pageSize = 10; // Number of items per page
 
-    const fetchData = async () => {
-        const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=20&offset=20`;
+    const fetchData = (trigger) => async () => {
+        const apiUrl = `https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=20&offset=${items.length}` + (city ? `&where=%22${city}%22` : '');
 
         try {
             const response = await fetch(apiUrl);
@@ -49,13 +48,18 @@ export default function Home() {
                     timezone: record.timezone,
                 }));
 
-                // Update state with new items
-                setItems(prevItems => [...prevItems, ...newItems]);
-                setPage(prevPage => prevPage + 1);
+                if (trigger === 'scroll') {
+                    // Update state with new items
+                    setItems(prevItems => [...prevItems, ...newItems]);
 
-                // Check if there are more items to load
-                if (data.results.length < pageSize) {
-                    setHasMore(false);
+                    // Check if there are more items to load
+                    if (data.results.length < pageSize) {
+                        setHasMore(false);
+                    }
+                }
+                else {
+                    setItems(newItems);
+                    setHasMore(true);
                 }
             } else {
                 setHasMore(false); // No more data to load
@@ -66,19 +70,9 @@ export default function Home() {
         }
     };
 
-
-
-
-
-
-
-
-
-
     useEffect(() => {
-
-        fetchData();
-    }, [])
+        fetchData()();
+    }, [city])
 
 
     return (
@@ -89,12 +83,12 @@ export default function Home() {
                         <h1 className="sm:text-4xl text-3xl font-medium title-font text-gray-50">Get the Weather </h1>
                     </div>
                     <div className='flex gap-2 items-center mb-4'>
-                    <input
-                        value={city} onKeyDown={handleKeyPress} onChange={(e) => setCity(e.currentTarget.value)}
-                        className=' font-normal p-2 focus:outline-none grow shadow-xl text-black capitalize' type="text" placeholder='Search for city...' />
-                    <Link href={`/Main?city=${city}`}>
-                        <UilSearch />
-                    </Link>
+                        <input
+                            value={city} onKeyDown={handleKeyPress} onChange={(e) => setCity(e.currentTarget.value)}
+                            className=' font-normal p-2 focus:outline-none grow shadow-xl text-black capitalize' type="text" placeholder='Search for city...' />
+                        <Link href={`/Main?city=${city}`}>
+                            <UilSearch />
+                        </Link>
                     </div>
 
                     <div className=" w-full mx-auto ">
@@ -110,9 +104,8 @@ export default function Home() {
 
                         {/* <Citydata city={city}/> */}
                         <InfiniteScroll
-
                             dataLength={items.length}
-                            next={fetchData}
+                            next={fetchData('scroll')}
                             hasMore={hasMore}
                             loader={<h4>Loading...</h4>}
                             endMessage={<p>No more items to load</p>}
