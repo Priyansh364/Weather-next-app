@@ -1,7 +1,6 @@
 'use client'
-import React from 'react'
+import { Suspense } from 'react'
 import { useState, useEffect } from 'react'
-import UilReact from '@iconscout/react-unicons/icons/uil-react'
 import Topbuttons from '/components/Topbuttons'
 import Inputs from '/components/Inputs'
 import TimeandLocation from '/components/TimeandLocation'
@@ -15,13 +14,13 @@ import { useSearchParams } from 'next/navigation'
 
 const Main = () => {
     // extract query parameters from props
-    
+
     const params = useSearchParams();
     const [query, setQuery] = useState({ q: params.get('city') ?? 'Berlin' })
     const [units, setUnits] = useState('metric')
     const [weather, setWeather] = useState(null)
-    
-    
+
+
     useEffect(() => {
 
         const fetchWeather = async () => {
@@ -52,25 +51,22 @@ const Main = () => {
     }
 
     return (
-        <div>
-            <div className='h-fit w-full mt-0'>
-                <div className={`z-2 relative mx-auto max-w-screen-md my-5 py-5 sm:px-32 bg-gradient-to-br ${formatbackground()} h-fit shadow-xl shadow-gray-400 container rounded-3xl`}>
-                    <Link href="/" className=' z-2 absolute  container w-full mx-10 text-white left-0'>&larr; Home</Link>
-                    <Topbuttons setQuery={setQuery} />
+        <div className='h-fit w-full mt-0g'>
+            <div className={`z-2 relative mx-auto max-w-screen-md my-5 py-5 sm:px-32 bg-gradient-to-br ${formatbackground()} h-fit shadow-xl shadow-gray-400 container rounded-3xl`}>
+                <Link href="/" className=' z-2 absolute  container w-full mx-10 text-white left-0'>&larr; Home</Link>
+                <Topbuttons setQuery={setQuery} />
                     <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
 
+                {weather &&
+                    <div>
 
-                    {weather &&
-                        <div>
+                        <TimeandLocation weather={weather} />
+                        <TemperatureandDetails weather={weather} />
+                        <Forecast title='3 Hourly Forecast' items={weather.list} />
 
-                            <TimeandLocation weather={weather} />
-                            <TemperatureandDetails weather={weather} />
-                            <Forecast title='3 Hourly Forecast' items={weather.list} />
+                    </div>
 
-                        </div>
-
-                    }
-                </div>
+                }
             </div>
         </div>
     )

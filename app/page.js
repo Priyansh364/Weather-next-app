@@ -78,7 +78,7 @@ export default function Home() {
 
     return (
         <>
-            <div className='w-full h-fit mx-auto mt-0'>
+            <div className=' w-full h-fit mx-auto mt-0'>
                 <section className="z-2 max-w-screen-md my-16 sm:px-32 bg-gradient-to-br from-cyan-700 to-blue-700 shadow-xl shadow-gray-400 container rounded-3xl text-gray-50 body-font px-5 py-7 mx-auto">
                     <div className="flex flex-col text-center w-full mb-10">
                         <h1 className="sm:text-4xl text-3xl font-medium title-font text-gray-50">Get the Weather </h1>
