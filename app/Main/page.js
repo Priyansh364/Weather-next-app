@@ -1,5 +1,4 @@
 'use client'
-import { Suspense } from 'react'
 import { useState, useEffect } from 'react'
 import Topbuttons from '/components/Topbuttons'
 import Inputs from '/components/Inputs'
@@ -9,7 +8,6 @@ import Forecast from '/components/Forecast'
 import getFormatedData from '/components/services/weatherService'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-// import newcitydata from '../services/CityService'
 
 
 const Main = () => {

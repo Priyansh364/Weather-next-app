@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatToLocalTime } from '/components/services/weatherService'
+import Map from './Map';
 
 const TimeandLocation = ({weather}) => {
 
@@ -23,8 +24,8 @@ const TimeandLocation = ({weather}) => {
                 <p className='text-white text-3xl font-medium'>
                     { `${weather.name} , ${weather.country}`}
                 </p>
-
             </div>
+                <Map lat={weather.lat} lon={weather.lon} />
         </div>
     )
 }
