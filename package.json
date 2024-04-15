@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@iconscout/react-unicons": "^2.0.2",
+    "@react-google-maps/api": "^2.19.3",
     "luxon": "^3.4.4",
     "next": "14.2.1",
     "react": "^18",
